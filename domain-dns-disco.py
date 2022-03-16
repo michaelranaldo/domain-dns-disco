@@ -4,13 +4,14 @@ import dns.resolver, argparse, os.path
 
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("domain", help="The domain to request")
-parser.add_argument("outfile", help="The output file location")
+parser.add_argument("outfile", help="The output file location", nargs="?")
 args = parser.parse_args()
 
-if os.path.exists(args.outfile):
-    print("Output file already exists")
-    print("Quitting...")
-    quit()
+if args.outfile is not None:
+    if os.path.exists(args.outfile):
+        print("Output file already exists")
+        print("Quitting...")
+        quit()
 
 dns_records = ["_ldap._tcp", "_gc._tcp", "_kerberos._tcp", "_kpasswd._tcp"]
 hosts = []
@@ -31,11 +32,12 @@ for dns_record in dns_records:
     except:
         print("No results for " + dns_record + "." + args.domain)
 
-    f = open(args.outfile, "a")
+    if args.outfile is not None:
+        f = open(args.outfile, "a")
 
-    unique_hosts = []
-    for host in hosts:
-        if host not in unique_hosts:
-            f.write(host + "\n")
-            unique_hosts.append(host)
-    f.close()
+        unique_hosts = []
+        for host in hosts:
+            if host not in unique_hosts:
+                f.write(host + "\n")
+                unique_hosts.append(host)
+        f.close()
