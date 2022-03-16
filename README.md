@@ -1,3 +1,5 @@
 # domain-dns-disco
 
-super simply python script to grab computers from domain
+super simple python script to grab computers from domain
+
+optionally output unique hosts to file.
