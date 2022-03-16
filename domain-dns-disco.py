@@ -4,7 +4,7 @@ import dns.resolver, argparse, os.path
 
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("domain", help="The domain to request")
-parser.add_argument("outfile", help="The output file location", nargs="?")
+parser.add_argument("outfile", help="[Optional]: an output file location", nargs="?")
 args = parser.parse_args()
 
 if args.outfile is not None:
